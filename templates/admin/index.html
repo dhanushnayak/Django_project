@@ -1,0 +1,622 @@
+
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'admin/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'admin/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+   <!-- <link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/chartist-bundle/chartist.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/morris-bundle/morris.css' %}">-->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/c3charts/c3.css' %}">-->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-1.4.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.4.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.4.0.min.css"/>
+    <title>Funds</title>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="/">Funds </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                                 <form type="get" action="." style="margin: 0">
+                            
+                            <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+                            <button id="search_submit" type="submit" >Submit</button>
+                           
+                            </form>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                <li class="connection-list">
+                                    <div class="row">
+                                        
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="/" class="connection-item"><img src="{% static 'admin/assets/images/bitbucket.png' %}" alt=""> <span>Home</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="/admin/login/" class="connection-item"><img src="{% static 'admin/assets/images/github.png' %}" alt="" > <span>Login</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="/signup" class="connection-item"><img src="{% static 'admin/assets/images/github.png' %}" alt="" > <span>signup</span></a>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="/">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Menu
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="/" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                                
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Search</a>
+                                 <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/search/">🔍 Donated Search</a>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Chart</a>
+                               <div id="submenu-3" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/chart">📊 Chart</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/chart1">📊 Chart1</a>
+                                            
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Forms</a>
+                                <div id="submenu-4" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/required/">📝 Required Form</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/citizen/">📝 Citizens Form</a>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/donate/">📝 Donation Form</a>
+                                            </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                               
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Tables</a>
+                                <div id="submenu-5" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/requiredlist">📄  Required Table</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/foodlist">📄  Food Table</a>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/staylist">📄  Stay Table</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/medlist">📄  Medicine Table</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/spentlist">📄  Spent_On Table</a>
+                                            </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                           
+                            
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        
+        <div class="dashboard-wrapper">
+            <div class="dashboard-ecommerce">
+                <div class="container-fluid dashboard-content ">
+                    <!-- ============================================================== -->
+                    <!-- pageheader  -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title">Donations </h2>
+                                <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                                <div class="page-breadcrumb">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Donations</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end pageheader  -->
+                    <!-- ============================================================== -->
+                    <div class="ecommerce-widget">
+
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">Total Revenue</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">₹{{total}}</h1>
+                                        </div>
+                                       
+                                    </div>
+                                 <div id="sparkline-revenue"></div>
+                            </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">Spent Amount(till date)</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">₹{{spent_total}}</h1>
+                                        </div>
+                                        
+                                    </div>
+                                    <div id="sparkline-revenue2"></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">Remaining Funds</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">₹{{remain}}</h1>
+                                        </div>
+                                       
+                                    </div>
+                                    <div id="sparkline-revenue3"></div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+                            <!-- ============================================================== -->
+                      
+                            <!-- ============================================================== -->
+
+                                          <!-- recent orders  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Spent On</h5>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                       
+                                                       <th class="border-0">Date</th>
+                                                    <th class="border-0">Name</th>
+                                                    
+                                                    <th class="border-0">Quality</th>
+                                                    
+                                                    <th class="border-0">Total</th>  
+                                              
+                                                       
+                                                        
+                                                    </tr>
+                                                </thead>
+                                               
+                                                 <tbody> 
+                                                    {% for cost in cost.itertuples%}
+                                                <tr>
+                                                <td>
+                                                {{cost.date}}
+                                                </td>
+                                                    <td>{{cost.name}}</td>
+                                                    <td>
+                                                        {{cost.quality}}
+                                                    </td>
+                                           
+                                                    <td>{{cost.Total}}</td>
+
+                                                </tr>
+                                                {%endfor%}
+                                                <tr>
+                                                    <td colspan="9"><a href="/spentlist/" class="btn btn-outline-light float-right">Total : {{sum}}</a></td>
+                                                </tr>
+                                            
+                                                 </tbody>   
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end recent orders  -->
+
+    
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- customer acquistion  -->
+                            <!-- ============================================================== -->
+                            
+                            <!-- ============================================================== -->
+                            <!-- end customer acquistion  -->
+                            <!-- ============================================================== -->
+                        </div>
+                        <div class="row">
+                            <!-- ============================================================== -->
+              				                        <!-- product category  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header"> Food Items Cost</h5>
+                                    <div class="card-body">
+                
+                                        <div class="text-center m-t-40">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                       
+                                                        <th class="border-0">Name</th>
+                                                        
+                                                        <th class="border-0">Cost</th>
+                                                   
+                                                    </tr>
+                                                </thead>
+                                               
+                                                <tbody> 
+                                                        {% for food in food.itertuples%}
+                                                    <tr>
+                                                        <td>{{food.name}}</td>
+                                                        <td>
+                                                            {{food.cost}}
+                                                        </td>
+                                                   
+                                                    </tr>
+                                                    {%endfor%}
+                                                    <tr>
+                                                        <td colspan="9"><a href="/foodlist" class="btn btn-outline-light float-right">View Details</a></td>
+                                                    </tr>
+                                                </tbody>
+                                                    
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end product category  -->
+                                   <!-- product sales  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <!-- <div class="float-right">
+                                                <select class="custom-select">
+                                                    <option selected>Today</option>
+                                                    <option value="1">Weekly</option>
+                                                    <option value="2">Monthly</option>
+                                                    <option value="3">Yearly</option>
+                                                </select>
+                                            </div> -->
+                                        <h5 class="mb-0"> Health Kits</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                                <tr class="border-0">
+                                                   
+                                                    <th class="border-0">Name</th>
+                                                    
+                                                    <th class="border-0">Cost</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                           
+                                            <tbody> 
+                                                    {% for med in med.itertuples%}
+                                                <tr>
+                                                    <td>{{med.name}}</td>
+                                                    <td>
+                                                        {{med.cost}}
+                                                    </td>
+                                                   
+                                                </tr>
+                                                {%endfor%}
+                                                <tr>
+                                                    <td colspan="9"><a href="/medlist" class="btn btn-outline-light float-right">View Details</a></td>
+                                                </tr>
+                                            </tbody>
+                                                
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end product sales  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
+                                <!-- ============================================================== -->
+                                <!-- top perfomimg  -->
+                                <!-- ============================================================== -->
+                                <div class="card">
+                                    <h5 class="card-header">Stay Cost</h5>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                       
+                                                        <th class="border-0">Name</th>
+                                                        
+                                                        <th class="border-0">Cost</th>
+                                                        
+                                                        
+                                                    </tr>
+                                                </thead>
+                                               
+                                                <tbody> 
+                                                        {% for stay in stay.itertuples%}
+                                                    <tr>
+                                                        <td>{{stay.name}}</td>
+                                                        <td>
+                                                            {{stay.cost}}
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    {%endfor%}
+                                                    <tr>
+                                                        <td colspan="9"><a href="/staylist" class="btn btn-outline-light float-right">View Details</a></td>
+                                                    </tr>
+                                                </tbody>
+                                                    
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- end top perfomimg  -->
+                                <!-- ============================================================== -->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- ============================================================== -->
+                            <!-- male  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">Males in Region</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">♂{{male}}</h1>
+                                        </div>
+                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end sales  -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- female  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">Females in Region</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">♀{{female}}</h1>
+                                        </div>
+                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end new customer  -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- migrated  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">migrated</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">{{migrated}}</h1>
+                                        </div>
+                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end visitor  -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- total orders  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                                <div class="card border-3 border-top border-top-primary">
+                                    <div class="card-body">
+                                        <h5 class="text-muted"><span class="text-primary d-inline-block">Total No_of_People for Help</span></h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1"><span class="text-primary d-inline-block">{{no_of_people}}</span></h1>
+                                        </div>
+                                        <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end total orders  -->
+                            <!-- ============================================================== -->
+                        </div>
+                        <div class="row">
+                            <!-- ============================================================== -->
+                            <!-- total revenue  -->
+                            <!-- ============================================================== -->
+  
+                            
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- category revenue  -->
+                            <!-- ============================================================== -->
+                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Revenue by Category</h5>
+                                    <div class="card-body">
+                                            <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class="bg-light">
+                                                            <tr class="border-0">
+                                                               
+                                                                <th class="border-0">Organization</th>
+                                                                
+                                                                <th class="border-0">Donated</th>
+                                                                
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                       
+                                                        <tbody> 
+                                                                {% for stay in fund_org.itertuples%}
+                                                            <tr>
+                                                                <td>{{stay.organization}}</td>
+                                                                <td>
+                                                                    {{stay.amount}}
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                            {%endfor%}
+                                                            
+                                                        </tbody>
+                                                            
+                                                    </table>
+                                                </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end category revenue  -->
+                            <!-- ============================================================== -->
+
+                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header"><span class="text-primary d-inline-block"> Available Funds</span></h5>
+                                    <div class="card-body">
+                                        <div id="morris_totalrevenue"></div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="display-7 font-weight-bold"><span class="text-primary d-inline-block">₹{{remain}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                              
+                             
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="{% static 'admin/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <!-- bootstap bundle js -->
+    <script src="{% static 'admin/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!-- slimscroll js -->
+    <script src="{% static 'admin/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'admin/assets/libs/js/main-js.js' %}"></script>
+    <!-- chart chartist js -->
+    
+    <script src="{% static 'admin/assets/libs/js/dashboard-ecommerce.js' %}"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-api-1.4.0.min.js"></script> 
+    {{script|safe}}
+</body>
+ 
+</html>

@@ -1,0 +1,84 @@
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+{% load static%}
+<!doctype html>
+<html>
+<head>
+<title>Donation Form </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Donation Form Widget Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- css files -->
+<link href="{%static 'donate/css/style.css' %}" rel='stylesheet' type='text/css' media="all" />
+<!-- /css files -->
+<!-- font files -->
+<link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600italic,600,700,700italic' rel='stylesheet' type='text/css'><!-- /font files -->
+<script type="text/javascript">
+	function clearField() {
+	   if(document.getElementById) {
+		  document.chatform.reset();
+	   }
+	}
+	</script>
+</head>
+<body>
+<h1 class="header-agileits w3 w3l agile-info">Donation Form</h1>
+
+<div class="content-w3ls">
+	<div class="form-w3layouts">
+		<form name = 'chatform' action="#" method="post">
+				{% csrf_token %}
+			<div class="form-control"> 
+				<label class="header">Name <span>*</span> </label>
+				<input type="text" id="name" name="name" placeholder="Your Name" title="Please enter your Full Name" required="">
+				<div class="clear"></div>
+			</div>
+		
+			<div class="form-control">	
+				<label class="header">Email <span>*</span> </label>
+				<input type="email" id="email" name="email" placeholder="Mail@example.com" title="Please enter a Valid Email Address" required="">
+				<div class="clear"></div>
+			</div>
+		
+			<div class="form-control">	
+				<label class="header">Organization  <span>*</span> </label>
+				<input type="text" id="bill" name="organization" placeholder="organization" title="Please enter Your Organization name" required="">
+				<div class="clear"></div>
+			</div>
+		
+			<div class="form-control">	
+				<label class="header">Phone Number <span>*</span> </label>	
+				<input type="tel" id="usrtel" name="usrtel" placeholder="Your Phone Number(Optional)" title="Please enter Your Phone Number">
+				<div class="clear"></div>
+			</div>	
+			<div class="form-control">	
+				<label class="header">Donation amount(rps) <span>*</span> </label>	
+				<input type="tel" id="usrtel" name="amount" placeholder="20" title="Please enter Your Amount" required="">
+				<div class="clear"></div>
+			</div>	
+			
+			{% if messages %}
+			<ul class="messages">
+ 		  {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  	{% endfor %}
+ 		</ul>
+  	  {% endif %}
+			
+			<div class="form-control">
+				<input type="submit" class="register" value="Donate">
+				<div class="clear"></div>
+			</div>	
+		</form>
+	</div>
+</div>
+
+
+</body>
+</html>

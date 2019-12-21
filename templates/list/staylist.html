@@ -1,0 +1,39 @@
+{% load render_table from django_tables2 %}
+{% include 'admin/index2.html' %}
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'plot/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'plot/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'plot/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+    <link rel="stylesheet" href="{% static 'plot/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/c3charts/c3.css' %}">-->
+    <link rel="stylesheet" href="{% static 'plot/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
+    <title>Sheet</title>
+</head>
+<body>
+    
+    
+     <div class="card">
+                <h5 class="card-header"></h5>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-light">
+                                <tr class="border">
+                                    <th><h3><span class="text-primary d-inline-block">{% render_table istekler %}</span></h3></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+             <span><a class='button' href='/'><h4><b><font face="Verdana" color='#70a1ff'><p align="right">🏠 Home</p></font></b></h4</a></span>
+        </div>
+        
+</body>
+</html>

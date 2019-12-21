@@ -1,0 +1,232 @@
+
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'admin/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'admin/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+   <!-- <link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/chartist-bundle/chartist.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/morris-bundle/morris.css' %}">-->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'plot/assets/vendor/charts/c3charts/c3.css' %}">-->
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-1.4.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.4.0.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.4.0.min.css"/>
+    <title><Main></Main></title>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="/">Funds</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                               <form type="get" action="." style="margin: 0">
+                            
+                            <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+                            <button id="search_submit" type="submit" >Submit</button>
+                           
+                            </form>
+                            </div>
+                        </li>
+                         
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                <li class="connection-list">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="/signup" class="connection-item"><img src="{% static 'admin/assets/images/github.png' %}" alt="" > <span>Sign-Up</span></a>
+                                        </div>
+                                        
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="/admin/login/" class="connection-item"><img src="{% static 'admin/assets/images/dropbox.png' %}" alt="" > <span>Login</span></a>
+                                        </div>
+                                    
+                                   
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="/" class="connection-item"><img src="{% static 'admin/assets/images/bitbucket.png' %}" alt=""> <span>Home</span></a>
+                                        </div>
+                                        </div>
+                                    
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        
+                      
+                        
+                    </ul>
+                </div>
+                
+            </nav>
+        </div>    
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="/">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Menu
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="/" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                                
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Search</a>
+                                 <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/search/">🔍 Donated Search</a>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Chart</a>
+                               <div id="submenu-3" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/chart">📊 Chart</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/chart1">📊 Chart1</a>
+                                            
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Forms</a>
+                                <div id="submenu-4" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/required/">📝 Required Form</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/citizen/">📝 Citizens Form</a>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/donate/">📝 Donation Form</a>
+                                            </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                               
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Tables</a>
+                                <div id="submenu-5" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/requiredlist">📄  Required Table</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/foodlist">📄  Food Table</a>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/staylist">📄  Stay Table</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/medlist">📄  Medicine Table</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/spentlist">📄  Spent_On Table</a>
+                                            </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                           
+                            
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+         <div class="dashboard-wrapper">
+            <div class="dashboard-ecommerce">
+                <div class="container-fluid dashboard-content ">
+                    <!-- ============================================================== -->
+                    <!-- pageheader  -->
+                    <!-- ============================================================== -->
+                    
+                    <!-- ============================================================== -->
+                    <!-- end pageheader  -->
+                    <!-- ============================================================== -->
+                   
+
+                        
+                            <!-- ============================================================== -->
+                            <!-- end sales  -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- female  -->
+                            <!-- ============================================================== -->
+                           
+                            <!-- ============================================================== -->
+                            <!-- end visitor  -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- total orders  -->
+                            <!-- ============================================================== -->
+                            
+                             
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="{% static 'admin/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <!-- bootstap bundle js -->
+    <script src="{% static 'admin/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!-- slimscroll js -->
+    <script src="{% static 'admin/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'admin/assets/libs/js/main-js.js' %}"></script>
+    <!-- chart chartist js -->
+    
+    <script src="{% static 'admin/assets/libs/js/dashboard-ecommerce.js' %}"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.4.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-api-1.4.0.min.js"></script> 
+    {{script|safe}}
+</body>
+ 
+</html>

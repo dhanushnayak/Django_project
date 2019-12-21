@@ -1,0 +1,42 @@
+{% load static %}
+{% include 'admin/index2.html' %}
+
+
+<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Search --> {{q}}</h5>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                    <th class="border-0">results</th>  
+                                              
+                                                       
+                                                        
+                                                    </tr>
+                                                </thead>
+                                               
+                                                 <tbody> 
+                                                 {% for cost in results%}
+                                                  <tr>
+                                                <td>
+                                                {{cost.date}}
+                                                </td>
+                                                    <td>{{cost.name}}</td>
+                                                    <td>
+                                                        {{cost.email}}
+                                                    </td>
+                                           
+                                                    <td>{{cost.organization}}</td>
+                                                    <td>{{cost.amount}}</td>
+
+                                                </tr>
+                                                
+                                                {% endfor %}
+                                               
+                                                    
+                                      </tbody>   
+                                            </table>
+                                              <span><a class='button' href='/'><h4><b><font face="Verdana" color='#70a1ff'><p align="right">🏠 Home</p></font></b></h4</a></span>
+</div>

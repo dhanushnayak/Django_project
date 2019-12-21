@@ -1,0 +1,86 @@
+{% extends "admin/index1.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}">
+{{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+
+{% if user.is_authenticated %}
+<p class="errornote">
+{% blocktrans trimmed %}
+    You are authenticated as {{ username }}, but are not authorized to
+    access this page. Would you like to login to a different account?
+{% endblocktrans %}
+</p>
+{% endif %}
+
+<div class="splash-container">
+        <div class="card ">
+            <div class="card-header text-center"><a href="admin/login/"><h2><b><font face="Verdana" color='#98a1ff'>Admin</font></b></h2></a><span class="splash-description">Please enter your user information.</span></div>
+            <div class="card-body">
+            <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+                <div class="form-group">
+                 
+                  {{ form.username.errors }}
+                  {{ form.username.label_tag }} --> {{ form.username }}
+                  
+                </div>
+                <div class="form-group">
+                      <p>.</p>
+                </div>
+                <div class="form-group">
+                  {{ form.password.errors }}
+                  {{ form.password.label_tag }} --> {{ form.password }}
+                  <input type="hidden" name="next" value="{{ next }}">
+                </div>
+                {% url 'admin_password_reset' as password_reset_url %}
+                {% if password_reset_url %}
+                <div class="password-reset-link">
+                  <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+                </div>
+                {% endif %}
+                <div class="submit-row">
+                  <label>&nbsp;</label><input type="submit" class="btn btn-primary btn-lg btn-block" value="{% trans 'Sign in' %}">
+                </div>
+              </form>
+            </div>
+            <div class="card-footer bg-white p-0  ">
+                <div class="card-footer-item card-footer-item-bordered">
+                    <a href="/signup/" class="footer-link">Create An Account</a></div>
+                <div class="card-footer-item card-footer-item-bordered">
+                    <a href="{{ password_reset_url }}" class="footer-link">Forgot Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+</div>
+{% endblock %}

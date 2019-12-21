@@ -1,0 +1,19 @@
+{% extends 'admin/index1.html' %}
+
+				{% if messages %}
+			<ul class="messages">
+ 		  {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  	{% endfor %}
+ 		</ul>
+  	  {% endif %}
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <span><h5><button type="submit"><b><font face="Verdana" color='#70a1ff'><p align="right">Sign up</p></font></b></button></h5></span>
+  </form>
+
+   <span><a class='button' href='/'><h4><b><font face="Verdana" color='#70a1ff'><p align="right">🏠 Home</p></font></b></h4</a></span>
+{% endblock %}
