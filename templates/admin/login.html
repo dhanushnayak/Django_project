@@ -1,6 +1,6 @@
 {% extends "admin/index1.html" %}
 {% load i18n static %}
-
+{% csrf_token %}
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}">
 {{ form.media }}
 {% endblock %}

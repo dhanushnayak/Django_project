@@ -9,6 +9,7 @@ from bokeh.embed import components
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from time import sleep
+import urllib.parse
 import pandas as pd
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -130,9 +131,11 @@ def index(request):
     return render(request,'admin/index.html',{"total":total,'feedback':feedback,'cost':df,'sum':dff,'food':food,'stay':stay,'med':med,"male":male,"female":female,'migrated':migrated,'no_of_people':no_of_people,'fund_org':f,'spent_total':spsum,'remain':remain})
 
 #----------------------------------functions------------------------------------------
+
+
 def connectdb():
     from pymongo import MongoClient as client
-    connect = client('mongodb://localhost:27017/')
+    connect = client("mongodb://localhost:27017/")
     db=connect.fund
     return db
 def sort_feedback():
@@ -155,8 +158,7 @@ def sort_feedback():
 def donatedf():
     try:
         from pymongo import MongoClient as client
-        connect = client('mongodb://localhost:27017/')
-        db=connect.fund
+        connect = client("mongodb://localhost:27017/")
         fd=db['fund_donate']
         y = []
 
@@ -167,24 +169,23 @@ def donatedf():
     except:
         pass
 def amount_sum():
-    try:
+    
         from pymongo import MongoClient as client
-        connect = client('mongodb://localhost:27017/')
+        connect = client("mongodb://localhost:27017/")
         db=connect.fund
-        fd=db['fund_donate']
+        fd=db.fund_donate
         y = []
 
         for x in fd.find():
             y.append(x['amount'])
         z = sum(y)
         return z
-    except:
-        pass
+    
 
 def place():
     try:
         from pymongo import MongoClient as client
-        connect = client('mongodb://localhost:27017/')
+        connect = client("mongodb://localhost:27017/")
         db=connect.fund
         fd= db['fund_region']
         y =[]
@@ -332,7 +333,7 @@ def requireddf():
         pass
 
 def costfield():
-        try:
+    try:
             df=requireddf()
             
             df1=fooddf()
@@ -340,30 +341,29 @@ def costfield():
             df3=meddf()
             df1=pd.concat([df1,df2])
             df1=pd.concat([df1,df3])
-            df1=df1.fillna('kodagu')
+            df1=df1.fillna('Rural Bangalore')
             df=df.rename(columns={"required1":"name"})
             df['cost']=df['name'].map(df1.set_index('name')['cost'])
             df['Total']= df['cost']*df['quality']
             df=df.drop(['cost','place'],axis=1)
             f=df
             g = dataframe_spent()
-            if g.empty==True:
-                df=f
-            else:
-                try:
+            try:
+                if dataframe_spent()==None:
+                    df=f
+            
+            except ValueError:   
                
                     df = f[~((f.name.isin(g.name))&(f.quality.isin(g.quality))&(f.id.isin(g.id)))]
                     df=df.sort_values(['Total'],ascending=False)
-                except:
-                    pass
+                
             df['date']=date.today()
             df['date']=df['date'].astype(str)
         
             return df
-        except:
-            pass
-        
-
+    except:
+        pass
+       
 def fund_organization():
     try:
         y=connectdb()
@@ -382,9 +382,12 @@ def fund_organization():
         pass
 
 def spent_table():
-    try:    
+    try: 
         df=costfield()
-        
+        df['id1']=df['id']
+        df = df.set_index('id')
+        df['id']=df['id1']
+        df=df.drop(columns='id1')
         y= connectdb()
         fd=y['fund_spent_on']
 
@@ -405,10 +408,14 @@ def dataframe_spent():
         for f in fd.find():
             d=f
             l.append(d)
-        dff=pd.DataFrame(l)
+        if len(l)!=0:
+            dff=pd.DataFrame(l)
+        else:
+            dff=0
         return dff
     except:
-        df = pd.DataFrame(l)
+        df = 0
+   
         return df
     
 def roughreq():
@@ -460,7 +467,7 @@ def update(request):
             pass
         
         spsum=0
-        remain=0
+        remain=total
         try:
             spsum=sp['Total'].sum()
             remain=total-spsum
