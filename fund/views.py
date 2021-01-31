@@ -4,8 +4,6 @@ from datetime import datetime
 from django.template import RequestContext
 from .models import donate,citizen,region,required,medicine,food,spent_on,stay
 from django.db.models import signals
-from bokeh.plotting import figure, output_file, show 
-from bokeh.embed import components
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from time import sleep
@@ -60,8 +58,10 @@ def index(request):
     except:
         pass
         
-   
-    df=cost.head(15)
+    try:
+        df=cost.head(15)
+    except:
+        pass
     try:
         dff=cost['Total'].sum()
     except:
@@ -159,6 +159,7 @@ def donatedf():
     try:
         from pymongo import MongoClient as client
         connect = client("mongodb://localhost:27017/")
+        db=connect.fund
         fd=db['fund_donate']
         y = []
 
@@ -868,8 +869,9 @@ def chart(request):
                 }
             datasource2['data']=[]
             df3=donatedf()
+            print(df3)
             df3 = df3.groupby(['email']).sum()
-            df3.index = df3.index.str.replace("@gmail.com","")
+            df3.index = df3.index
             df3=df3.head(6)
             df3 = df3['amount']
             df3 = df3.to_dict()

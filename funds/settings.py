@@ -14,7 +14,7 @@ import os
 from django.contrib.messages import constants as message_constants
 from django.contrib.messages import constants as messages
 import urllib.parse
-import django_heroku
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
